@@ -1,0 +1,27 @@
+template<class T>
+void InsertNode(BinaryTreeNode<T> *root , BinaryTreeNode<T> *newpointer)  {                    
+     BinaryTreeNode<T> *pointer = NULL;
+     if (root == NULL) {                 //如果是空树
+        Initialize(newpointer);   //则用指针newpointer作为树根
+        return;
+     }
+	  else pointer = root;
+	  while (pointer != NULL) {
+	      if (newpointer->value() == pointer->value())// 如果存在相等的元素则不用插入
+		        return ;
+		    else if (newpointer->value() < pointer->value()) { // 如果待插入结点小于pointer的关键码值
+            if (pointer->leftchild() == NULL) {   // 如果pointer没有左孩子
+              pointer->left = newpointer;		 	                             // newpointer作为pointer的左子树
+				      return;
+			      }
+		        else     pointer = pointer->leftchild();    // 向左下降
+	      }
+	      else { // 若待插入结点大于pointer的关键码值
+		     if (pointer->rightchild() == NULL){//如果pointer没有右孩子
+		         pointer->right = newpointer;     		              // newpointer作为pointer的右子树
+			       return;
+		      }
+		      else	pointer = pointer->rightchild();         // 向右下降
+	      }
+	   }
+}
