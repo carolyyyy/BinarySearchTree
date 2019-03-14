@@ -1,0 +1,46 @@
+//方法一：合并删除
+template <class T>
+void deleteByMerging(BinarySearchTreeNode<T>* node){
+	BinarySearchTreeNode<T> *tmp=node;
+	if(node!=NULL){                       
+      if(!node->rightChild)               //如果被删除结点没有右子树，用其左子树的根结点来代替被删除结点
+	        node=node->leftChild;                
+	    else if(node->leftChild==NULL)       //如果被删除结点没有左子树，用其右子树的根结点来代替被删除结点
+	        node=node->rightChild;
+	    else{                      //如果被删除结点左右子树都存在 
+		       tmp=node->leftChild;
+		       while(tmp->rightChild!=NULL)    //查找左子树中按中序遍历的最后一个节点
+		            tmp=tmp->rightChild;            
+		       tmp->rightChild=node->rightChild;    //将查找到的结点的右指针赋值为被删除结点的右子树的根
+		       tmp=node;
+		       node=node->leftChild; //用左子树的根结点代替被删除结点 
+	    } 
+	delete tmp;
+	}
+}
+
+
+//方法二：复制删除
+template <class T>
+void deleteByCopying(BinarySearchTreeNode<T>* node){
+	BinarySearchTreeNode<T>* previous,*tmp=node;
+	if(node->rightChild==NULL)       //如果被删除结点没有右子树，用其左子树的根结点来代替被删除结点
+	    node=node->leftChild;               
+	else if(node->leftChild==NULL)   //如果被删除结点没有左子树，用其右子树的根结点来代替被删除结点
+	    node=node->rightChild;
+	else{
+		  tmp=node->leftChild;
+		  previous=node;
+		  while(tmp->rightChild!=NULL) //查找左子树中关键码最大的结点
+		  {
+			  previous=tmp;
+			  tmp=tmp->rightChild;
+		  } 
+		  node->value=tmp->value;    //将查找到的结点的值赋值给被删除结点
+		  if(previous==node)
+		      previous->leftChild=tmp->leftChild;
+		  else
+		      previous->rightChild=tmp->leftChild; 
+	} 
+	delete tmp;
+}
