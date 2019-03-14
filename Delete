@@ -3,17 +3,17 @@ template <class T>
 void deleteByMerging(BinarySearchTreeNode<T>* node){
 	BinarySearchTreeNode<T> *tmp=node;
 	if(node!=NULL){                       
-      if(!node->rightChild)               //如果被删除结点没有右子树，用其左子树的根结点来代替被删除结点
+        if(!node->rightChild)               //如果被删除结点没有右子树，用其左子树的根结点来代替被删除结点
 	        node=node->leftChild;                
-	    else if(node->leftChild==NULL)       //如果被删除结点没有左子树，用其右子树的根结点来代替被删除结点
+	else if(node->leftChild==NULL)       //如果被删除结点没有左子树，用其右子树的根结点来代替被删除结点
 	        node=node->rightChild;
-	    else{                      //如果被删除结点左右子树都存在 
-		       tmp=node->leftChild;
-		       while(tmp->rightChild!=NULL)    //查找左子树中按中序遍历的最后一个节点
-		            tmp=tmp->rightChild;            
-		       tmp->rightChild=node->rightChild;    //将查找到的结点的右指针赋值为被删除结点的右子树的根
-		       tmp=node;
-		       node=node->leftChild; //用左子树的根结点代替被删除结点 
+	else{                      //如果被删除结点左右子树都存在 
+		tmp=node->leftChild;
+		while(tmp->rightChild!=NULL)    //查找左子树中按中序遍历的最后一个节点
+    	               tmp=tmp->rightChild;            
+  	        tmp->rightChild=node->rightChild;    //将查找到的结点的右指针赋值为被删除结点的右子树的根
+		tmp=node;
+	        node=node->leftChild; //用左子树的根结点代替被删除结点 
 	    } 
 	delete tmp;
 	}
