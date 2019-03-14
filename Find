@@ -1,0 +1,9 @@
+template <class T>
+BinarySearchTreeNode<T>* search(BinarySearchTreeNode<T>* root,T key){
+	BinarySearchTreeNode<T>* current=root;
+	while((NULL!=root)&&(key!=current->getValue()))//当前结点的key值等于查询的值时，退出循环
+	{
+		current=(key<current->getValue() ? search(current->leftChild,key) : search(current->rightChild,key));//根据当前结点的值的大小决定移动方向 
+	 } 
+	 return current;
+}
